@@ -162,6 +162,8 @@ def execute():
                     pararCiclo=True
                 elif(data=="DATA_END"):
                     pararCiclo=True
+                elif(data=="DATA_START"):
+                    pass
                 else:
                     print(data)
                     allObs.append(data)

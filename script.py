@@ -124,8 +124,10 @@ def temperatureCorrection(data):
     var=(var/len(t))**(1/2)
     print(" -> STANDARD DEVIATION =",var)
     print(" -> |T_FIN - T_INI| =",abs(t_fin-t_ini))
+
+    t_new=sum(t[0:5])/5
+
     if var>2 or abs(t_fin-t_ini)>2:
-        t_new=sum(t[0:5])/5
         correccion=True
     print(" -> CORRECCION:",correccion)
     

@@ -179,50 +179,51 @@ def execute():
     allTest=False
     hour="XXX"
     executionOk=True
-    try:
+    #try:
         
-        print("TRYING CONNECTION ...")
-        res,serial_port=openConn(puertoExp)
-        if(res):
-            print(" -> CONN SUCCESS ...")
-            print("TEST EXPERIMENT ...")
-            if(testExp(serial_port)):
-                print(" -> TEST SUCCESS ...")
-                print("CONFIGURE OBS...")
-                if(initExp(serial_port,dist,samples)):
-                    print(" -> CONF SUCCESS ...")
-                    print("STARTING EXPERIMENT...")
-                    if(start(serial_port)):
-                        hour=str(datetime.now()).replace(" ","_").replace(":","_")
-                        print(" -> EXP STARTED ...")
-                        allTest=True
-        
-        if not allTest:
-            print(" -> FAILED!!!")
-        
-        allObs=[]
+    print("TRYING CONNECTION ...")
+    res,serial_port=openConn(puertoExp)
+    if(res):
+        print(" -> CONN SUCCESS ...")
+        print("TEST EXPERIMENT ...")
+        if(testExp(serial_port)):
+            print(" -> TEST SUCCESS ...")
+            print("CONFIGURE OBS...")
+            if(initExp(serial_port,dist,samples)):
+                print(" -> CONF SUCCESS ...")
+                print("STARTING EXPERIMENT...")
+                if(start(serial_port)):
+                    hour=str(datetime.now()).replace(" ","_").replace(":","_")
+                    print(" -> EXP STARTED ...")
+                    allTest=True
+    
+    if not allTest:
+        print(" -> FAILED!!!")
+    
+    allObs=[]
 
-        if allTest:
-            pararCiclo=False
-            while not pararCiclo:
-                data=receiveData(serial_port,country,city,lat,long,alt,univ)
-                if(data=="ERROR"):
-                    print(" -> ERROR_EN_OBS")
-                    pararCiclo=True
-                elif(data=="DATA_END"):
-                    pararCiclo=True
-                elif(data=="DATA_START"):
-                    pass
-                else:
-                    allObs.append(data)
-            temperatureCorrection(allObs)
-            saveObservationCSV(filename_v,allObs,hour)
+    if allTest:
+        pararCiclo=False
+        while not pararCiclo:
+            data=receiveData(serial_port,country,city,lat,long,alt,univ)
+            if(data=="ERROR"):
+                print(" -> ERROR_EN_OBS")
+                pararCiclo=True
+            elif(data=="DATA_END"):
+                pararCiclo=True
+            elif(data=="DATA_START"):
+                pass
+            else:
+                allObs.append(data)
+        temperatureCorrection(allObs)
+        saveObservationCSV(filename_v,allObs,hour)
             
-
+    """
     except Exception as e:
         executionOk = False
         print(" -> EXECUTION FAILED!!!\n",str(e))
-    
+    """
+
     return (allTest and executionOk)
 
     

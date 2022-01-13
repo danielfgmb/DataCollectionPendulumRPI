@@ -116,15 +116,18 @@ def temperatureCorrection(data):
     for row in data:
         t.append(float(row["temperature"]))
     t_prom=sum(t)/len(t)
+    print(" -> T_PROM",t_prom)
     var=0
 
     for t_u in t:
         var+=(t_u-t_prom)**2
-    var=var**(1/2)
-
+    var=(var/len(t))**(1/2)
+    print(" -> STANDARD DEVIATION =",var)
+    print(" -> |T_FIN - T_INI| =",abs(t_fin-t_ini))
     if var>2 or abs(t_fin-t_ini)>2:
         t_new=sum(t[0:5])/5
         correccion=True
+    print(" -> CORRECCION:",correccion)
     
     for row in data:
         row["correction"]=correccion
@@ -132,6 +135,7 @@ def temperatureCorrection(data):
             row["temp_corr"]=t_new
             row["length_corr"]=lenght+lenght*cte_lenght*(t_new-t_measured)
             row["g_corr"]=2*3.1415926*row["lenght_corr"]
+            print(row["temp_corr"],row["length_corr"],row["g_corr"])
         else:
             row["temp_corr"]=row["temperature"]
             row["length_corr"]=0
@@ -167,8 +171,7 @@ def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
 
     f = open(backup_directory+"/"+"data"+str(datetime)+".csv", 'a')
     writer = csv.writer(f)
-    if escribirHead:
-        writer.writerow(list(data[0].keys()))
+    writer.writerow(list(data[0].keys()))
     for row in data:
         writer.writerow(list(row.values()))
     f.close()  

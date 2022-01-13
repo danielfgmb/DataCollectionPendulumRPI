@@ -110,16 +110,16 @@ def receiveData(serial_port,country,city,lat,long,alt,univ):
 def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
     if len(data)>0:
         if(os.path.exists(filename)):
-            f = open(filename, 'w')
+            f = open(filename, 'a')
             writer = csv.writer(f)
             writer.writerow(list(data[0].keys()))
             f.close()
         
 
-        f = open(filename, 'w')
+        f = open(filename, 'a')
         for row in data:
             writer = csv.writer(f)
-            writer.writerow(list(data[0].values()))
+            writer.writerow(list(row.values()))
         f.close()  
     pass
 
@@ -169,9 +169,9 @@ def execute():
             saveObservationCSV(filename_v,data,hour)
             
 
-    except:
+    except Exception as e:
         executionOk = False
-        print(" -> EXECUTION FAILED!!!")
+        print(" -> EXECUTION FAILED!!!\n",str(e))
     
     return (allTest and executionOk)
 

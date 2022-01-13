@@ -215,7 +215,7 @@ def execute():
                     pass
                 else:
                     allObs.append(data)
-            allObs=temperatureCorrection(allObs)
+            temperatureCorrection(allObs)
             saveObservationCSV(filename_v,allObs,hour)
             
 

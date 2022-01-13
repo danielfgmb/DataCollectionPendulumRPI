@@ -160,8 +160,10 @@ def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
             
             writer.writerow(list(row.values()))
         f.close()  
-    
-    os.mkdir(backup_directory)
+    try:
+        os.mkdir(backup_directory)
+    except:
+        pass
 
     f = open(backup_directory+"/"+"data"+str(datetime)+".csv", 'a')
     writer = csv.writer(f)

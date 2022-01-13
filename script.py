@@ -165,7 +165,7 @@ def execute():
                     print(data)
                     allObs.append(data)
             
-            saveObservationCSV(filename_v,data,hour)
+            saveObservationCSV(filename_v,allObs,hour)
             
 
     except Exception as e:

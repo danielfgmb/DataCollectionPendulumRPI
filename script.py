@@ -53,7 +53,6 @@ def initExp(serial_port,dist,samples):
 
     while True :
         pic_message = serial_port.read_until(b'\r')
-        #print("MENSAGEM DO PIC DE CONFIGURACAO:\n")
         print(" ->",pic_message.decode(encoding='ascii'))
 
         if "CFG" in pic_message.decode(encoding='ascii') :

@@ -105,6 +105,9 @@ def receiveData(serial_port,country,city,lat,long,alt,univ):
         except:
             return "ERROR"
 
+def temperatureCorrection(data):
+
+
 
 def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
 
@@ -129,7 +132,7 @@ def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
     
     os.mkdir(backup_directory)
 
-    f = open("data"+str(datetime)+".csv", 'a')
+    f = open(backup_directory+"/"+"data"+str(datetime)+".csv", 'a')
     writer = csv.writer(f)
     if escribirHead:
         writer.writerow(list(data[0].keys()))
@@ -181,7 +184,7 @@ def execute():
                     pass
                 else:
                     allObs.append(data)
-            
+            allObs=temperatureCorrection(allObs)
             saveObservationCSV(filename_v,allObs,hour)
             
 

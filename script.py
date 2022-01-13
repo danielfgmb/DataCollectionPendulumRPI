@@ -106,6 +106,7 @@ def receiveData(serial_port,country,city,lat,long,alt,univ):
             return "ERROR"
 
 def temperatureCorrection(data):
+    pass
 
 
 

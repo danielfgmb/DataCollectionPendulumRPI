@@ -17,6 +17,9 @@ lat = "4°36'N"
 long = "74°3'W"
 alt = "2500"
 univ = "Uniandes"
+lenght = 2.8155 #m
+cte_lenght = 0.000016 #m/m°C
+t_measured=18.97 #°C
 
 filename_v= "resultados_uniandes.csv"
 
@@ -96,7 +99,6 @@ def receiveData(serial_port,country,city,lat,long,alt,univ):
     elif "END" in pic_message:
         return "DATA_END"
     else:
-        #1       3.1911812       9.7769165       21.2292843      25.72
         try:
             pic_message = pic_message.strip()
             pic_message = pic_message.split("\t")
@@ -106,7 +108,35 @@ def receiveData(serial_port,country,city,lat,long,alt,univ):
             return "ERROR"
 
 def temperatureCorrection(data):
-    pass
+    t_fin=data[-1]["temperature"]
+    t_ini=data[0]["temperature"]
+    t=[]
+    correccion=False
+
+    for row in data:
+        t.append(float(row["temperature"]))
+    t_prom=sum(t)/len(t)
+    var=0
+
+    for t_u in t:
+        var+=(t_u-t_prom)^2
+    var=var^(1/2)
+
+    if var>2 or abs(t_fin-t_ini)>2:
+        t_new=sum(t[0:5])/5
+        correccion=True
+    
+    for row in data:
+        row["correction"]=correccion
+        if(correccion):
+            row["temp_corr"]=t_new
+            row["length_corr"]=lenght+lenght*cte_lenght*(t_new-t_measured)
+            row["g_corr"]=2*3.1415926*row["lenght_corr"]
+        else:
+            row["temp_corr"]=row["temperature"]
+            row["length_corr"]=0
+            row["g_corr"]=row["gravity"]
+
 
 
 
@@ -116,7 +146,7 @@ def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
     if len(data)>0:
         escribirHead=False
         if(os.path.exists(filename)): 
-            filesize = os.path.getsize("sample.txt")
+            filesize = os.path.getsize(filename)
             if not filesize>0:
                 escribirHead=True
         else:

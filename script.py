@@ -18,7 +18,7 @@ long = "74°3'W"
 alt = "2500"
 univ = "Uniandes"
 
-filename_v= "resultados_uniandes"
+filename_v= "resultados_uniandes.csv"
 
 
 
@@ -38,7 +38,7 @@ def testExp(serial_port):
     pic_message = serial_port.read_until(b'\r')
     pic_message = pic_message.decode(encoding='ascii')
     pic_message = pic_message.strip()
-    print(pic_message)
+    print(" ->",pic_message)
     if(re.search(r"^(IDS)\s(?P<exp_name>[^ \t]+)\s(?P<exp_state>[^ \t]+)$",pic_message)):
         test=True
     return test
@@ -90,7 +90,7 @@ def start(serial_port) :
 def receiveData(serial_port,country,city,lat,long,alt,univ):
     pic_message = serial_port.read_until(b'\r')
     pic_message = pic_message.decode(encoding='ascii')
-    print(pic_message)
+    print(" ->",pic_message)
     if "DAT" in pic_message:
         return "DATA_START"
     elif "END" in pic_message:
@@ -107,21 +107,36 @@ def receiveData(serial_port,country,city,lat,long,alt,univ):
 
 
 def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
-    print(data)
+
+
     if len(data)>0:
-        if(os.path.exists(filename)):
-            f = open(filename, 'a')
-            writer = csv.writer(f)
-            writer.writerow(list(data[0].keys()))
-            f.close()
-        
+        escribirHead=False
+        if(os.path.exists(filename)): 
+            filesize = os.path.getsize("sample.txt")
+            if not filesize>0:
+                escribirHead=True
+        else:
+            escribirHead=True
 
         f = open(filename, 'a')
+        writer = csv.writer(f)
+        if escribirHead:
+            writer.writerow(list(data[0].keys()))
         for row in data:
-            writer = csv.writer(f)
+            
             writer.writerow(list(row.values()))
         f.close()  
-    pass
+    
+    os.mkdir(backup_directory)
+
+    f = open("data"+str(datetime)+".csv", 'a')
+    writer = csv.writer(f)
+    if escribirHead:
+        writer.writerow(list(data[0].keys()))
+    for row in data:
+        writer.writerow(list(row.values()))
+    f.close()  
+
 
 
 
@@ -165,7 +180,6 @@ def execute():
                 elif(data=="DATA_START"):
                     pass
                 else:
-                    print(data)
                     allObs.append(data)
             
             saveObservationCSV(filename_v,allObs,hour)

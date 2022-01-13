@@ -119,8 +119,8 @@ def temperatureCorrection(data):
     var=0
 
     for t_u in t:
-        var+=(t_u-t_prom)^2
-    var=var^(1/2)
+        var+=(t_u-t_prom)**2
+    var=var**(1/2)
 
     if var>2 or abs(t_fin-t_ini)>2:
         t_new=sum(t[0:5])/5

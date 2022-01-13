@@ -101,11 +101,19 @@ def receiveData(serial_port,country,city,lat,long,alt,univ):
 """INICIO EJECUCIÓN"""
 try:
     allTest=False
+    print("TRYING CONNECTION ...")
     res,serial_port=openConn(puertoExp)
     if(res):
+        print("-> CONN SUCCESS ...")
+        print("TEST EXPERIMENT ...")
         if(testExp(serial_port)):
+            print("-> TEST SUCCESS ...")
+            print("CONFIGURE OBS...")
             if(initExp(serial_port,dist,samples)):
+                print("-> CONF SUCCESS ...")
+                print("STARTING EXPERIMENT...")
                 if(start(serial_port)):
+                    print("-> EXP STARTED ...")
                     allTest=True
     
     allObs=[]

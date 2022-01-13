@@ -49,6 +49,8 @@ def initExp(serial_port,dist,samples):
     serial_port.reset_input_buffer()
     serial_port.write(cmd)
 
+    intentoPorSiError=0
+
     while True :
         pic_message = serial_port.read_until(b'\r')
         #print("MENSAGEM DO PIC DE CONFIGURACAO:\n")
@@ -56,8 +58,16 @@ def initExp(serial_port,dist,samples):
 
         if "CFG" in pic_message.decode(encoding='ascii') :
             break
-        elif re.search(r"(STOPED|RESETED){1}$",pic_message.decode(encoding='ascii')) != None:
+        elif intentoPorSiError < 3:
+            cmd ="cfg\t"+str(dist)+"\t"+str(samples)+"\r"
+            cmd = cmd.encode(encoding="ascii")
+            serial_port.reset_input_buffer()
+            serial_port.write(cmd)
+            print(" -> WARNING: TRYING CFG AGAIN",intentoPorSiError)
+            intentoPorSiError +=1
+        else:
             return False
+        
     
     status_confirmation = serial_port.read_until(b'\r')
     status_confirmation = status_confirmation.decode(encoding='ascii')

@@ -126,10 +126,10 @@ def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
 
 # PRINCIPAL METHOD
 def execute():
-    allTest=False
-    hour="XXX"
-    executionOk=True
-    try:
+        allTest=False
+        hour="XXX"
+        executionOk=True
+    #try:
         
         print("TRYING CONNECTION ...")
         res,serial_port=openConn(puertoExp)
@@ -168,11 +168,8 @@ def execute():
             saveObservationCSV(filename_v,allObs,hour)
             
 
-    except Exception as e:
-        executionOk = False
-        print(" -> EXECUTION FAILED!!!\n",str(e))
     
-    return (allTest and executionOk)
+        return (allTest and executionOk)
 
     
 execute()

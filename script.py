@@ -108,8 +108,8 @@ def receiveData(serial_port,country,city,lat,long,alt,univ):
             return "ERROR"
 
 def temperatureCorrection(data):
-    t_fin=data[-1]["temperature"]
-    t_ini=data[0]["temperature"]
+    t_fin=float(data[-1]["temperature"])
+    t_ini=float(data[0]["temperature"])
     t=[]
     correccion=False
 

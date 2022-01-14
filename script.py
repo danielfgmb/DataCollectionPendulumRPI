@@ -234,7 +234,7 @@ def execute():
 
     return (allTest and executionOk)
 
-    
+
 execute()
 
 

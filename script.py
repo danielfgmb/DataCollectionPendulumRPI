@@ -14,18 +14,14 @@ dist = 15 # distance (CFG dist samples)
 samples = 64 # samples per obscervation
 country = "CO" # country code ISO
 city = "BOG"
-lat = "4°36'N"
-long = "74°3'W"
-alt = "2500"
+lat = "4.6012"
+long = "-74.0657"
+alt = "2630"
 univ = "Uniandes"
 lenght = 2.8155 #m
-cte_lenght = 0.000016 #m/m°C
+cte_lenght = 14*10**(-6) #m/m°C http://www.elab.tecnico.ulisboa.pt/wiki/index.php?title=World_Pendulum
 t_measured=18.97 #°C
-
 filename_v= "resultados_uniandes.csv"
-
-
-
 
 def openConn(puertoExp):
     conn=False
@@ -103,7 +99,7 @@ def receiveData(serial_port,country,city,lat,long,alt,univ):
         try:
             pic_message = pic_message.strip()
             pic_message = pic_message.split("\t")
-            pic_data={"sample":str(pic_message[0]),"datetime":str(datetime.now(pytz.utc)),"period":str(pic_message[1]),"gravity":str(pic_message[2]),"velocity":str(pic_message[3]),"temperature":str(pic_message[4]),"country":country,"city":city,"university":univ,"lat":str(lat),"long":str(long),"alt":str(alt)}
+            pic_data={"sample":str(pic_message[0]),"datetime (utc)":str(datetime.now(pytz.utc)),"period (s)":str(pic_message[1]),"gravity (m/s2)":str(pic_message[2]),"velocity (m/s)":str(pic_message[3]),"temperature (c)":str(pic_message[4]),"country":country,"city":city,"university":univ,"lat":str(lat),"long":str(long),"alt":str(alt)}
             return pic_data
         except:
             return "ERROR"

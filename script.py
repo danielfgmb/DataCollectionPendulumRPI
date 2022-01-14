@@ -105,13 +105,13 @@ def receiveData(serial_port,country,city,lat,long,alt,univ):
             return "ERROR"
 
 def temperatureCorrection(data):
-    t_fin=float(data[-1]["temperature"])
-    t_ini=float(data[0]["temperature"])
+    t_fin=float(data[-1]["temperature (c)"])
+    t_ini=float(data[0]["temperature (c)"])
     t=[]
     correccion=False
 
     for row in data:
-        t.append(float(row["temperature"]))
+        t.append(float(row["temperature (c)"]))
     t_prom=sum(t)/len(t)
     print(" -> T_PROM",t_prom)
     var=0
@@ -131,14 +131,14 @@ def temperatureCorrection(data):
     for row in data:
         row["correction"]=correccion
         if correccion:
-            row["temp_corr"]=t_new
-            row["length_corr"]=lenght+lenght*cte_lenght*(t_new-t_measured)
-            row["g_corr"]=(4*(3.1415926**2)*row["length_corr"])/(float(row["period"])**2)
-            print(row["temp_corr"],row["length_corr"],row["g_corr"])
+            row["temp_corr (c)"]=t_new
+            row["length_corr (c)"]=lenght+lenght*cte_lenght*(t_new-t_measured)
+            row["g_corr (m/s2)"]=(4*(3.1415926**2)*row["length_corr (m)"])/(float(row["period (s)"])**2)
+            print(row["temp_corr (c)"],row["length_corr (m)"],row["g_corr (m/s2)"])
         else:
-            row["temp_corr"]=row["temperature"]
-            row["length_corr"]=0
-            row["g_corr"]=row["gravity"]
+            row["temp_corr (c)"]=row["temperature (c)"]
+            row["length_corr (m)"]=0
+            row["g_corr (m/s2)"]=row["gravity (m/s2)"]
 
 
 

@@ -1,5 +1,26 @@
 # DataCollectionPendulumRPI
 
+## Requirements
+
+### Python packages
+
+- serial
+- csv
+- re
+- os
+- pytz
+- datetime
+
+### Installation
+
+```
+pip install serial
+pip install pytz
+pip install regex
+pip install csv
+```
+
+
 ## Configuration
 
 Edit lines 8 to 24 with the specifications for the location and configuration of the pendulum.
@@ -23,7 +44,7 @@ t_measured=18.97 #°C
 filename_v= "resultados_uniandes.csv"
 ```
 
-## Chron Tab
+## Chron Job
 
 Enter this command to set a new chron job
 
@@ -31,10 +52,12 @@ Enter this command to set a new chron job
 crontab -e
 ```
 
-Add a new line in the chron tab file
+Add a new line in the chron tab file to run the script every 12 minutes
 
 
 ```
-*/23 * * * * /usr/bin/python3 ~/DataCollectionPendulumRPI/script.py
+*/12 * * * * /usr/bin/python3 ~/DataCollectionPendulumRPI/script.py
 
 ```
+
+#### Based on https://github.com/e-lab-FREE/RPi_Proxy/tree/main/pic_interface

@@ -133,7 +133,7 @@ def temperatureCorrection(data):
     
     for row in data:
         row["correction"]=correccion
-        if(True):
+        if correccion:
             row["temp_corr"]=t_new
             row["length_corr"]=lenght+lenght*cte_lenght*(t_new-t_measured)
             row["g_corr"]=(4*(3.1415926**2)*row["length_corr"])/(float(row["period"])**2)

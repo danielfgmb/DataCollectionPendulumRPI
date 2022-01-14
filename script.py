@@ -2,6 +2,7 @@ import serial
 import csv
 import re
 import os
+import pytz
 from datetime import datetime
 
 
@@ -102,7 +103,7 @@ def receiveData(serial_port,country,city,lat,long,alt,univ):
         try:
             pic_message = pic_message.strip()
             pic_message = pic_message.split("\t")
-            pic_data={"sample":str(pic_message[0]),"datetime":str(datetime.now()),"period":str(pic_message[1]),"gravity":str(pic_message[2]),"velocity":str(pic_message[3]),"temperature":str(pic_message[4]),"country":country,"city":city,"university":univ,"lat":str(lat),"long":str(long),"alt":str(alt)}
+            pic_data={"sample":str(pic_message[0]),"datetime":str(datetime.now(pytz.utc)),"period":str(pic_message[1]),"gravity":str(pic_message[2]),"velocity":str(pic_message[3]),"temperature":str(pic_message[4]),"country":country,"city":city,"university":univ,"lat":str(lat),"long":str(long),"alt":str(alt)}
             return pic_data
         except:
             return "ERROR"
@@ -200,7 +201,7 @@ def execute():
                 print(" -> CONF SUCCESS ...")
                 print("STARTING EXPERIMENT...")
                 if(start(serial_port)):
-                    hour=str(datetime.now()).replace(" ","_").replace(":","_")
+                    hour=str(datetime.now(pytz.utc)).replace(" ","_").replace(":","_")
                     print(" -> EXP STARTED ...")
                     allTest=True
     

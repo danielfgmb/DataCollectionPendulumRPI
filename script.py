@@ -201,7 +201,7 @@ def execute():
                 print(" -> CONF SUCCESS ...")
                 print("STARTING EXPERIMENT...")
                 if(start(serial_port)):
-                    hour=str(datetime.now(pytz.utc)).replace(" ","_").replace(":","_")
+                    hour=str(datetime.now(pytz.utc)).replace(" ","_").replace(":","_").replace("+","_")
                     print(" -> EXP STARTED ...")
                     allTest=True
     

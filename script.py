@@ -9,8 +9,8 @@ from datetime import datetime
 CHANGE INFO ACCORDING TO YOUR PENDULUM LOCATION
 """
 puertoExp = "/dev/ttyS0" # serial port RPI
-dist = 10 # distance (CFG dist samples)
-samples = 10 # samples per obscervation
+dist = 15 # distance (CFG dist samples)
+samples = 64 # samples per obscervation
 country = "CO" # country code ISO
 city = "BOG"
 lat = "4°36'N"

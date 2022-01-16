@@ -21,8 +21,7 @@ univ = "Uniandes"
 lenght = 2.8155 #m
 cte_lenght = 14*10**(-6) #m/m°C http://www.elab.tecnico.ulisboa.pt/wiki/index.php?title=World_Pendulum
 t_measured=18.97 #°C
-directory = "/DataTidesUniandes/" 
-filename_v= directory+"resultados_uniandes.csv"
+filename_v= "resultados_uniandes.csv"
 #optional
 
 def openConn(puertoExp):

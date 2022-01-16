@@ -155,7 +155,7 @@ def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
         else:
             escribirHead=True
 
-        f = open(filename, 'a')
+        f = open(filename, 'a', newline='')
         writer = csv.writer(f)
         if escribirHead:
             writer.writerow(list(data[0].keys()))

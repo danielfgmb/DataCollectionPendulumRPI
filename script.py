@@ -22,6 +22,7 @@ lenght = 2.8155 #m
 cte_lenght = 14*10**(-6) #m/m°C http://www.elab.tecnico.ulisboa.pt/wiki/index.php?title=World_Pendulum
 t_measured=18.97 #°C
 filename_v= "resultados_uniandes.csv"
+directory = "/DataTidesUniandes/" #optional
 
 def openConn(puertoExp):
     conn=False
@@ -143,7 +144,7 @@ def temperatureCorrection(data):
 
 
 
-def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
+def saveObservationCSV(filename,data,datetime,backup_directory="/DataTidesUniandes/backup-data"):
 
 
     if len(data)>0:

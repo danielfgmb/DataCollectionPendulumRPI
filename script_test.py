@@ -336,7 +336,7 @@ def subirAGit(ok,date,hour,minute):
         print("NO GIT")
         print(date,hour,minute)
 
-hour=str(datetime.now(pytz.utc)).replace(" ","_").replace(":","_").replace("+","_")
+hour=str(datetime.now(pytz.utc)).replace(" ","_").replace(":","_").replace("+","_").split("_")
 print(hour,hour[0],int(hour[1]),int(hour[2]))
 ok,xd,data=execute()
 executeAverage(data,filename_write,samples)

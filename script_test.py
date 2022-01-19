@@ -334,8 +334,10 @@ def subirAGit(ok,date,hour,minute):
         os.system("git -C ~/"+repository+"/ push https://"+''.join(key.split())+"@github.com/danielfgmb/DataTidesUniandes.git")
     else:
         print("NO GIT")
+        print(date,hour,minute)
 
 hour=str(datetime.now(pytz.utc)).replace(" ","_").replace(":","_").replace("+","_")
+print(hour[0],int(hour[1]),int(hour[2]))
 ok,xd,data=execute()
 executeAverage(data,filename_write,samples)
 subirAGit(ok,hour[0],int(hour[1]),int(hour[2]))

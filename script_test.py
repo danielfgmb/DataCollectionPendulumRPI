@@ -232,10 +232,16 @@ def execute():
         print(" -> EXECUTION FAILED!!!\n",str(e))
     """
 
-    return (allTest and executionOk)
+    return (allTest and executionOk) , hour
+
+# ok,hour=execute()
+
+os.system("git -C ~/DataTidesUniandes/ fetch")
+
+os.system("git -C ~/DataTidesUniandes/ pull")
 
 
-execute()
+
 
 
 

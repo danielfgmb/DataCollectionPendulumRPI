@@ -261,8 +261,12 @@ def prueba():
 
 
 def subirAGit(ok,hour):
-    print(hour.split(" ")[1].split(":")[0])
-    print(hour.split(" ")[1].split(":")[1])
+    try:
+        print(hour)
+        print(hour.split(" ")[1].split(":")[0])
+        print(hour.split(" ")[1].split(":")[1])
+    except:
+        pass
     f = open("github.key", 'r')
     key = f.read()
     os.system("git -C ~/"+repository+"/ add .")

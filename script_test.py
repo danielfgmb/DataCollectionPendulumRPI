@@ -245,6 +245,7 @@ try:
     os.system("mkdir "+backup_directory)
 except:
     pass
+print("xd",backs)
 f = open(backs+"/"+"data"+str(datetime)+".csv", 'a')
 writer = csv.writer(f)
 writer.writerow(['hey','jude'])

@@ -11,7 +11,7 @@ CHANGE INFO ACCORDING TO YOUR PENDULUM LOCATION
 """
 puertoExp = "/dev/ttyS0" # serial port RPI
 dist = 15 # distance (CFG dist samples)
-samples = 10 # samples per obscervation
+samples = 64 # samples per obscervation
 country = "CO" # country code ISO
 city = "BOG"
 lat = "4.6012"
@@ -324,20 +324,19 @@ def executeAverage(data,filename_write,sample_number):
 def subirAGit(ok,date,hour,minute):
     if(ok):
         msj="ok"
-    if(ok):
+    else:
         msj="err"
     f = open("github.key", 'r')
     key = f.read()
-    if( (hour==6 or hour==19) and (minute >=17 and minute < 50)):
+    if( (hour==5 or hour==19) and (minute >=0 and minute < 11)):
         os.system("git -C ~/"+repository+"/ add .")
-        os.system("git -C ~/"+repository+"/ commit -m \"periodic update "+date+" "+str(hour)+". "+str(msj)+"\"")
+        os.system("git -C ~/"+repository+"/ commit -m \"periodic update "+date+" "+str(hour)+" "+str(msj)+"\"")
         os.system("git -C ~/"+repository+"/ push https://"+''.join(key.split())+"@github.com/danielfgmb/DataTidesUniandes.git")
     else:
         print("NO GIT")
         print(date,hour,minute)
 
 hour=str(datetime.now(pytz.utc)).replace(" ","_").replace(":","_").replace("+","_").split("_")
-print(hour[0],int(hour[1]),int(hour[2]))
 ok,xd,data=execute()
 executeAverage(data,filename_write,samples)
 subirAGit(ok,hour[0],int(hour[1]),int(hour[2]))

@@ -240,7 +240,7 @@ def execute():
 
 backup_directory="backup-data"
 backup_directory = "~/DataTidesUniandes/"+backup_directory
-os.mkdir(backup_directory)
+os.system("mkdir "+backup_directory)
 f = open(backup_directory+"/"+"data"+str(datetime)+".csv", 'a')
 writer = csv.writer(f)
 writer.writerow(['hey','jude'])

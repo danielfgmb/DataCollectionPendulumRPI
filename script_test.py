@@ -239,8 +239,9 @@ def execute():
 
 
 backup_directory="backup-data"
-backup_directory = "~/DataTidesUniandes/"+backup_directory
 backs="/home/pi/"+"DataTidesUniandes/"+backup_directory
+backup_directory = "~/DataTidesUniandes/"+backup_directory
+
 try:
     os.system("mkdir "+backup_directory)
 except:

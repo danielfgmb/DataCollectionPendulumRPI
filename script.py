@@ -22,6 +22,7 @@ lenght = 2.8155 #m
 cte_lenght = 14*10**(-6) #m/m°C http://www.elab.tecnico.ulisboa.pt/wiki/index.php?title=World_Pendulum
 t_measured=18.97 #°C
 filename_v= "resultados_uniandes.csv"
+repository="DataTidesUniandes"
 #optional
 
 def openConn(puertoExp):
@@ -146,24 +147,28 @@ def temperatureCorrection(data):
 
 def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
 
+    backup_directory="~/"+repository+"/"+backup_directory
 
     if len(data)>0:
-        escribirHead=False
-        if(os.path.exists(filename)): 
-            filesize = os.path.getsize(filename)
-            if not filesize>0:
+        try:
+            escribirHead=False
+            if(os.path.exists(filename)): 
+                filesize = os.path.getsize(filename)
+                if not filesize>0:
+                    escribirHead=True
+            else:
                 escribirHead=True
-        else:
-            escribirHead=True
 
-        f = open(filename, 'a', newline='')
-        writer = csv.writer(f)
-        if escribirHead:
-            writer.writerow(list(data[0].keys()))
-        for row in data:
-            
-            writer.writerow(list(row.values()))
-        f.close()  
+            f = open(filename, 'a', newline='')
+            writer = csv.writer(f)
+            if escribirHead:
+                writer.writerow(list(data[0].keys()))
+            for row in data:
+                
+                writer.writerow(list(row.values()))
+            f.close()
+        except:
+            pass
     try:
         os.mkdir(backup_directory)
     except:

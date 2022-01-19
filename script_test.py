@@ -328,9 +328,9 @@ def subirAGit(ok,date,hour,minute):
         msj="err"
     f = open("github.key", 'r')
     key = f.read()
-    if( (hour==5 or hour==19) and (minute >=0 and minute < 11)):
+    if( (hour==5 or hour==19 or hour==11 or hour==23) and (minute >=0 and minute < 11)):
         os.system("git -C ~/"+repository+"/ add .")
-        os.system("git -C ~/"+repository+"/ commit -m \"periodic update "+date+" "+str(hour)+" "+str(msj)+"\"")
+        os.system("git -C ~/"+repository+"/ commit -m \"periodic update "+date+" "+str(hour-5)+"H "+str(msj)+"\"")
         os.system("git -C ~/"+repository+"/ push https://"+''.join(key.split())+"@github.com/danielfgmb/DataTidesUniandes.git")
     else:
         print("NO GIT")

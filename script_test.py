@@ -239,7 +239,7 @@ try:
     f = open("github.key", 'r')
     key = f.read()
     os.system("git -C ~/DataTidesUniandes/ commit -m \"Actualización periódica de datos automática\"")
-    os.system("git -C ~/DataTidesUniandes/ push https://"+key+"@github.com/danielfgmb/DataTidesUniandes.git")
+    os.system("git -C ~/DataTidesUniandes/ push https://"+''.join(key.split())+"@github.com/danielfgmb/DataTidesUniandes.git")
 
 except:
     pass

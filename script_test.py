@@ -147,12 +147,8 @@ def temperatureCorrection(data):
 
 def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
 
-
-    backup_directory="backup-data"
     backs="/home/pi/"+repository+"/"+backup_directory
     backup_directory = "~/"+repository+"/"+backup_directory
-    backup_directory = "~/"+repository+"/"+backup_directory
-
     filename="/home/pi/"+repository+"/"+filename
 
     try:
@@ -265,6 +261,8 @@ def prueba():
 
 
 def subirAGit(ok,hour):
+    print(hour.split(" ")[1].split(":")[0])
+    print(hour.split(" ")[1].split(":")[1])
     f = open("github.key", 'r')
     key = f.read()
     os.system("git -C ~/"+repository+"/ add .")

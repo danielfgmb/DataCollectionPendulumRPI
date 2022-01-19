@@ -235,12 +235,14 @@ def execute():
     return (allTest and executionOk) , hour
 
 # ok,hour=execute()
+try:
+    f = open("github.key", 'r')
+    key = f.read()
+    os.system("git -C ~/DataTidesUniandes/ commit -m \"Actualización periódica de datos automática\"")
+    os.system("git -C ~/DataTidesUniandes/ push https://"+key+"@github.com/danielfgmb/DataTidesUniandes.git")
 
-os.system("git -C ~/DataTidesUniandes/ commit -m \"Actualización periódica de datos automática\"")
-
-os.system("git -C ~/DataTidesUniandes/ push https://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@github.com/danielfgmb/DataTidesUniandes.git")
-
-
+except:
+    pass
 
 
 

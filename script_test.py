@@ -321,23 +321,24 @@ def executeAverage(data,filename_write,sample_number):
     writeCSV(filename_write,data)
 
 
-def subirAGit(ok,hour):
-    try:
-        print(hour)
-        print(hour.split("_")[1])
-        print(hour.split("_")[2])
-    except:
-        pass
+def subirAGit(ok,date,hour,minute):
+    if(ok):
+        msj="ok"
+    if(ok):
+        msj="err"
     f = open("github.key", 'r')
     key = f.read()
-    os.system("git -C ~/"+repository+"/ add .")
-    os.system("git -C ~/"+repository+"/ commit -m \"Actualización periódica de datos automática "+hour+" UTC\"")
-    os.system("git -C ~/"+repository+"/ push https://"+''.join(key.split())+"@github.com/danielfgmb/DataTidesUniandes.git")
+    if( (hour==6 or hour==19) and (minute >=17 and minute < 24)):
+        os.system("git -C ~/"+repository+"/ add .")
+        os.system("git -C ~/"+repository+"/ commit -m \"periodic update "+date+" "+hour+". "+msj)
+        os.system("git -C ~/"+repository+"/ push https://"+''.join(key.split())+"@github.com/danielfgmb/DataTidesUniandes.git")
+    else:
+        print("NO GIT")
 
-
-ok,hour,data=execute()
+hour=str(datetime.now(pytz.utc)).replace(" ","_").replace(":","_").replace("+","_")
+ok,xd,data=execute()
 executeAverage(data,filename_write,samples)
-subirAGit(ok,hour)
+subirAGit(ok,hour[0],int(hour[1]),int(hour[2]))
 
 
 

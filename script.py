@@ -147,8 +147,6 @@ def temperatureCorrection(data):
 
 def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
 
-    backup_directory="~/"+repository+"/"+backup_directory
-
     if len(data)>0:
         try:
             escribirHead=False

@@ -241,7 +241,10 @@ def execute():
 backup_directory="backup-data"
 backup_directory = "~/DataTidesUniandes/"+backup_directory
 backs=os.path.relpath(backup_directory)
-os.system("mkdir "+backup_directory)
+try:
+    os.system("mkdir "+backup_directory)
+except:
+    pass
 f = open(backs+"/"+"data"+str(datetime)+".csv", 'a')
 writer = csv.writer(f)
 writer.writerow(['hey','jude'])

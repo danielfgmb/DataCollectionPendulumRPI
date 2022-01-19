@@ -237,25 +237,21 @@ def execute():
 
 #ok,hour=execute()
 
-try:
 
-    backup_directory="backup-data"
-    backup_directory = "~/DataTidesUniandes/"+backup_directory
-    os.mkdir(backup_directory)
-    f = open(backup_directory+"/"+"data"+str(datetime)+".csv", 'a')
-    writer = csv.writer(f)
-    writer.writerow(['hey','jude'])
-    f.close()  
-
-
-    f = open("github.key", 'r')
-    key = f.read()
-    os.system("git -C ~/"+repository+"/ commit -m \"Actualización periódica de datos automática\"")
-    os.system("git -C ~/"+repository+"/ push https://"+''.join(key.split())+"@github.com/danielfgmb/DataTidesUniandes.git")
+backup_directory="backup-data"
+backup_directory = "~/DataTidesUniandes/"+backup_directory
+os.mkdir(backup_directory)
+f = open(backup_directory+"/"+"data"+str(datetime)+".csv", 'a')
+writer = csv.writer(f)
+writer.writerow(['hey','jude'])
+f.close()  
 
 
-except:
-    pass
+f = open("github.key", 'r')
+key = f.read()
+os.system("git -C ~/"+repository+"/ commit -m \"Actualización periódica de datos automática\"")
+os.system("git -C ~/"+repository+"/ push https://"+''.join(key.split())+"@github.com/danielfgmb/DataTidesUniandes.git")
+
 
 
 

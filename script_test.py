@@ -11,7 +11,7 @@ CHANGE INFO ACCORDING TO YOUR PENDULUM LOCATION
 """
 puertoExp = "/dev/ttyS0" # serial port RPI
 dist = 15 # distance (CFG dist samples)
-samples = 64 # samples per obscervation
+samples = 10 # samples per obscervation
 country = "CO" # country code ISO
 city = "BOG"
 lat = "4.6012"
@@ -147,6 +147,7 @@ def temperatureCorrection(data):
 
 def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
 
+    backup_directory = "~/DataTidesUniandes/"+backup_directory
     if len(data)>0:
         try:
             escribirHead=False
@@ -234,12 +235,13 @@ def execute():
 
     return (allTest and executionOk) , hour
 
-# ok,hour=execute()
+ok,hour=execute()
+
 try:
     f = open("github.key", 'r')
     key = f.read()
-    os.system("git -C ~/DataTidesUniandes/ commit -m \"Actualización periódica de datos automática\"")
-    os.system("git -C ~/DataTidesUniandes/ push https://"+''.join(key.split())+"@github.com/danielfgmb/DataTidesUniandes.git")
+    os.system("git -C ~/"+repository+"/ commit -m \"Actualización periódica de datos automática\"")
+    os.system("git -C ~/"+repository+"/ push https://"+''.join(key.split())+"@github.com/danielfgmb/DataTidesUniandes.git")
 
 except:
     pass

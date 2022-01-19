@@ -147,7 +147,19 @@ def temperatureCorrection(data):
 
 def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
 
-    backup_directory = "~/DataTidesUniandes/"+backup_directory
+
+    backup_directory="backup-data"
+    backs="/home/pi/"+repository+"/"+backup_directory
+    backup_directory = "~/"+repository+"/"+backup_directory
+    backup_directory = "~/"+repository+"/"+backup_directory
+
+    filename="/home/pi/"+repository+"/"+filename
+
+    try:
+        os.system("mkdir "+backup_directory)
+    except:
+        pass
+
     if len(data)>0:
         try:
             escribirHead=False
@@ -168,12 +180,9 @@ def saveObservationCSV(filename,data,datetime,backup_directory="backup-data"):
             f.close()
         except:
             pass
-    try:
-        os.mkdir(backup_directory)
-    except:
-        pass
+   
 
-    f = open(backup_directory+"/"+"data"+str(datetime)+".csv", 'a')
+    f = open(backs+"/"+"data"+str(datetime)+".csv", 'a')
     writer = csv.writer(f)
     writer.writerow(list(data[0].keys()))
     for row in data:
@@ -235,31 +244,36 @@ def execute():
 
     return (allTest and executionOk) , hour
 
-#ok,hour=execute()
-
-
-backup_directory="backup-data"
-backs="/home/pi/"+"DataTidesUniandes/"+backup_directory
-backup_directory = "~/DataTidesUniandes/"+backup_directory
-
-try:
-    os.system("mkdir "+backup_directory)
-except:
-    pass
-print("xd",backs)
-f = open(backs+"/"+"data"+str(datetime)+".csv", 'a')
-writer = csv.writer(f)
-writer.writerow(['hey','jude'])
-f.close()  
-
-
-f = open("github.key", 'r')
-key = f.read()
-os.system("git -C ~/"+repository+"/ commit -m \"Actualización periódica de datos automática\"")
-os.system("git -C ~/"+repository+"/ push https://"+''.join(key.split())+"@github.com/danielfgmb/DataTidesUniandes.git")
 
 
 
+def prueba():
+
+    backup_directory="backup-data"
+    backs="/home/pi/"+"DataTidesUniandes/"+backup_directory
+    backup_directory = "~/DataTidesUniandes/"+backup_directory
+
+    try:
+        os.system("mkdir "+backup_directory)
+    except:
+        pass
+    print("xd",backs)
+    f = open(backs+"/"+"data"+str(datetime)+".csv", 'a')
+    writer = csv.writer(f)
+    writer.writerow(['hey','jude'])
+    f.close()  
+
+
+def subirAGit(ok,hour):
+    f = open("github.key", 'r')
+    key = f.read()
+    os.system("git -C ~/"+repository+"/ add .")
+    os.system("git -C ~/"+repository+"/ commit -m \"Actualización periódica de datos automática\"")
+    os.system("git -C ~/"+repository+"/ push https://"+''.join(key.split())+"@github.com/danielfgmb/DataTidesUniandes.git")
+
+
+ok,hour=execute()
+subirAGit(ok,hour)
 
 
 

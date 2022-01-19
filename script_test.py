@@ -236,9 +236,9 @@ def execute():
 
 # ok,hour=execute()
 
-os.system("git -C ~/DataTidesUniandes/ fetch")
+os.system("git -C ~/DataTidesUniandes/ commit -m \"Actualización periódica de datos automática\"")
 
-os.system("git -C ~/DataTidesUniandes/ pull")
+os.system("git -C ~/DataTidesUniandes/ push https://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@github.com/danielfgmb/DataTidesUniandes.git")
 
 
 

@@ -73,7 +73,7 @@ def execute(filename_read,filename_write,sample_number):
     data = readFile(filename_read,sample_number)
     writeCSV(filename_write,data)
 
-execute(filename_read,filename_write,sample_number)
+#execute(filename_read,filename_write,sample_number)
 
 
 
